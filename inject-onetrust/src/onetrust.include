@@ -1,0 +1,36 @@
+<script
+    src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+    data-domain-script="b9242434-9feb-47be-a894-3a9e658fdd50"
+></script>
+<script>
+    function OptanonWrapper() {}
+</script>
+<script>
+    function setGTM(w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start': new Date().getTime(),
+            event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    }
+    if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) {
+        setGTM(window, document, 'script', 'dataLayer', 'GTM-KXXGHCNF');
+    } else {
+        waitForOnetrustActiveGroups();
+    }
+    var timer;
+    function waitForOnetrustActiveGroups() {
+        if (document.cookie.indexOf('OptanonConsent') > -1 && document.cookie.indexOf('groups=') > -1) {
+            clearTimeout(timer);
+            setGTM(window, document, 'script', 'dataLayer', 'GTM-KXXGHCNF');
+        } else {
+            timer = setTimeout(waitForOnetrustActiveGroups, 250);
+        }
+    }
+</script>

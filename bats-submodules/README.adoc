@@ -1,0 +1,18 @@
+So we do not have to add the submodules multiple times we add them here and then add symlinks to the directories for each project.
+
+We setup the bats submodules usinggit g:
+
+[source,bash]
+----
+git submodule add https://github.com/bats-core/bats-core.git test/bats
+git submodule add https://github.com/bats-core/bats-support.git test/test_helper/bats-support
+git submodule add https://github.com/bats-core/bats-assert.git test/test_helper/bats-assert
+git submodule add https://github.com/buildkite-plugins/bats-mock test/helpers/mocks
+----
+
+To add all symlinks use:
+
+[source,bash]
+----
+ls -1 ../../bats-submodules/test | xargs -I{} ln -s ../../bats-submodules/test/{} {}
+----

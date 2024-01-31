@@ -1,0 +1,19 @@
+name: Run Tests
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Run BATS tests
+        run: ./inject-onetrust/test/bats/bin/bats ./inject-onetrust/test/
+      - name: Run BATS tests
+        run: ./download-spring-docs/test/bats/bin/bats ./download-spring-docs/test/
