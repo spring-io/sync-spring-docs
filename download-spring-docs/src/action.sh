@@ -71,9 +71,11 @@ __action() {
   fi
   local download_dir=downloads
   local docs_base_dir=docs
+  local get_docs_to_download_uri="https://${artifactory_host}/api/search/prop?zip.type=docs&zip.deployed=false"
   mkdir -p $download_dir
+  echo "Getting Downloads from $get_docs_to_download_uri"
   # Use same headers that existed in the original script
-  curl -s -H 'Content-type: application/json' -H 'Content-Length: 0' -H 'Accept: application/json' --user "$artifactory_username:$artifactory_password" "https://${artifactory_host}/api/search/prop?zip.type=docs&zip.deployed=false" | jq -r '.results | .[].uri' | while read uri; do
+  curl -s -H 'Content-type: application/json' -H 'Content-Length: 0' -H 'Accept: application/json' --user "$artifactory_username:$artifactory_password" "$get_docs_to_download_uri" | jq -r '.results | .[].uri' | while read uri; do
     # split by / into uri_parts array
     IFS='/' read -r -a uri_parts <<< "$uri"
     local file_name="${uri_parts[-1]}"
@@ -81,7 +83,7 @@ __action() {
     local project_name="${uri_parts[-3]}"
     local download_url=$(echo $uri | sed 's#/api/storage##')
     local download_file_path="${download_dir}/${file_name}"
-    wget --http-user=$username --http-password=$password --quiet -O "$download_file_path" $download_url
+    wget --http-user=$artifactory_username --http-password=$artifactory_password -O "$download_file_path" $download_url
     local unzip_dir="${docs_base_dir}/${project_name}/${project_version}"
     mkdir -p $unzip_dir
     unzip -o $download_file_path -d $unzip_dir
@@ -89,6 +91,7 @@ __action() {
     local mark_deployed_url="${uri}?properties=zip.deployed=true"
     curl -X PUT -H 'Content-type: application/json' -H 'Content-Length: 0' -H 'Accept: application/json' --user "$artifactory_username:$artifactory_password" $mark_deployed_url
   done
+  echo "Done getting docs"
 }
 
 

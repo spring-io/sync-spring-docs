@@ -2,5 +2,11 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/bats-submodules/test/bats" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/bats-submodules/test/helpers/mocks" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/bats-submodules/test/test_helper/bats-assert" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/bats-submodules/test/test_helper/bats-support" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/download-spring-docs/test/bats" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/inject-onetrust/test/bats" vcs="Git" />
   </component>
 </project>
