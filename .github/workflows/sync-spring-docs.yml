@@ -10,9 +10,12 @@ jobs:
   build:
     name: Sync Spring Docs
     runs-on: ubuntu-latest
+    env:
+      ARTIFACTORY_USERNAME: ${{ secrets.COMMERCIAL_ANNOTATE_ARTIFACTORY_USERNAME }}
+      ARTIFACTORY_PASSWORD: ${{ secrets.COMMERCIAL_ANNOTATE_ARTIFACTORY_PASSWORD }}
     steps:
       - uses: actions/checkout@v3
       - name: Download Spring Docs from Artifactory
-        run: echo 'TBD'
+        run: ./download-spring-docs/src/action.sh --artifactory-username "$ARTIFACTORY_USERNAME" --artifactory-password "$ARTIFACTORY_PASSWORD" --docs-base-dir=docs
       - name: Inject OneTrust
-        run: echo 'TBD'
+        run: ./inject-onetrust/src/action.sh
