@@ -75,6 +75,7 @@ __action() {
   mkdir -p $download_dir
   echo "Getting Downloads from $get_docs_to_download_uri"
   # Use same headers that existed in the original script
+  # https://jfrog.com/help/r/jfrog-rest-apis/property-search
   curl -s -H 'Content-type: application/json' -H 'Content-Length: 0' -H 'Accept: application/json' --user "$artifactory_username:$artifactory_password" "$get_docs_to_download_uri" | jq -r '.results | .[].uri' | while read uri; do
     # split by / into uri_parts array
     IFS='/' read -r -a uri_parts <<< "$uri"
