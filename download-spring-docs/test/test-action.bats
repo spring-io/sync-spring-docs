@@ -66,6 +66,7 @@ usage: action.sh [OPTION]...
     stub curl "$(capture_program_args "curl")"
     stub mkdir "$(capture_program_args "mkdir")"
     stub mkdir "$(capture_program_args "mkdir")"
+    stub wget "$(capture_program_args "wget")"
     stub unzip "$(capture_program_args "unzip")"
     stub rm "$(capture_program_args "rm")"
 
@@ -73,6 +74,7 @@ usage: action.sh [OPTION]...
 
     unstub curl
     unstub mkdir
+    unstub wget
     unstub unzip
     unstub rm
 
@@ -81,6 +83,7 @@ usage: action.sh [OPTION]...
 -X PUT -H Content-type: application/json -H Content-Length: 0 -H Accept: application/json --user username:password https://repo.spring.vmware.com/artifactory/api/storage/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip?properties=zip.deployed=true"
     assert_program_args "mkdir" "-p downloads
 -p docs/http-client/1.0.0.M1"
+    assert_program_args "wget" "--http-user=username --http-password=password -O downloads/http-client-1.0.0.M1-docs.zip https://repo.spring.vmware.com/artifactory/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip"
     assert_program_args "unzip" "-o downloads/http-client-1.0.0.M1-docs.zip -d docs/http-client/1.0.0.M1"
     assert_program_args "rm" "-f downloads/http-client-1.0.0.M1-docs.zip"
 }
@@ -90,6 +93,7 @@ usage: action.sh [OPTION]...
     stub curl "$(capture_program_args "curl")"
     stub mkdir "$(capture_program_args "mkdir")"
     stub mkdir "$(capture_program_args "mkdir")"
+    stub wget "$(capture_program_args "wget")"
     stub unzip "$(capture_program_args "unzip")"
     stub rm "$(capture_program_args "rm")"
 
@@ -97,10 +101,12 @@ usage: action.sh [OPTION]...
 
     unstub curl
     unstub mkdir
+    unstub wget
     unstub unzip
     unstub rm
 
     assert_success
     assert_program_args "curl" "-s -H Content-type: application/json -H Content-Length: 0 -H Accept: application/json --user username:password https://repo.spring.io/api/search/prop?zip.type=docs&zip.deployed=false
 -X PUT -H Content-type: application/json -H Content-Length: 0 -H Accept: application/json --user username:password https://repo.spring.io/artifactory/api/storage/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip?properties=zip.deployed=true"
+    assert_program_args "wget" "--http-user=username --http-password=password -O downloads/http-client-1.0.0.M1-docs.zip https://repo.spring.io/artifactory/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip"
 }
