@@ -70,7 +70,6 @@ __action() {
     __action_usage_error "Missing option '--docs-base-dir'"
   fi
   local download_dir=downloads
-  local docs_base_dir=docs
   local get_docs_to_download_uri="https://${artifactory_host}/api/search/prop?zip.type=docs&zip.deployed=false"
   mkdir -p $download_dir
   mkdir -p $docs_base_dir
