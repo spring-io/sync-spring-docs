@@ -44,8 +44,9 @@ __action() {
     if [ -z "$docs_directory" ]; then
       __action_usage_error "Missing option '--docs-base-dir'"
     fi
+    echo "Injecting OneTrust into html files for the following projects in $docs_directory"
+    tree -L 2 $docs_directory
     find $docs_directory -name "*.html" | while read html_filename; do
-        echo $html_filename
         # https://learnbyexample.github.io/learn_gnused/adding-content-from-file.html#insert-file-using-e-and-cat
         sed -i -e '/<\/head>/e cat '$onetrust_include_path $html_filename
     done
