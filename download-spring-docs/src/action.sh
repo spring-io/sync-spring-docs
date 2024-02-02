@@ -84,10 +84,11 @@ __action() {
     local project_name="${uri_parts[-3]}"
     local download_url=$(echo $uri | sed 's#/api/storage##')
     local download_file_path="${download_dir}/${file_name}"
-    wget --http-user=$artifactory_username --http-password=$artifactory_password -O "$download_file_path" $download_url
+    echo "Downloading ${download_url} to ${download_file_path}"
+    wget --http-user=$artifactory_username --http-password=$artifactory_password --quiet -O "$download_file_path" $download_url
     local unzip_dir="${docs_base_dir}/${project_name}/${project_version}"
     mkdir -p $unzip_dir
-    unzip -o $download_file_path -d $unzip_dir
+    unzip -q -o $download_file_path -d $unzip_dir
     rm -f $download_file_path
     local mark_deployed_url="${uri}?properties=zip.deployed=true"
     curl -X PUT -H 'Content-type: application/json' -H 'Content-Length: 0' -H 'Accept: application/json' --user "$artifactory_username:$artifactory_password" $mark_deployed_url

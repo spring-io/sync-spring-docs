@@ -83,8 +83,8 @@ usage: action.sh [OPTION]...
 -X PUT -H Content-type: application/json -H Content-Length: 0 -H Accept: application/json --user username:password https://repo.spring.vmware.com/artifactory/api/storage/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip?properties=zip.deployed=true"
     assert_program_args "mkdir" "-p downloads
 -p docs/http-client/1.0.0.M1"
-    assert_program_args "wget" "--http-user=username --http-password=password -O downloads/http-client-1.0.0.M1-docs.zip https://repo.spring.vmware.com/artifactory/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip"
-    assert_program_args "unzip" "-o downloads/http-client-1.0.0.M1-docs.zip -d docs/http-client/1.0.0.M1"
+    assert_program_args "wget" "--http-user=username --http-password=password --quiet -O downloads/http-client-1.0.0.M1-docs.zip https://repo.spring.vmware.com/artifactory/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip"
+    assert_program_args "unzip" "-q -o downloads/http-client-1.0.0.M1-docs.zip -d docs/http-client/1.0.0.M1"
     assert_program_args "rm" "-f downloads/http-client-1.0.0.M1-docs.zip"
 }
 
@@ -108,5 +108,5 @@ usage: action.sh [OPTION]...
     assert_success
     assert_program_args "curl" "-s -H Content-type: application/json -H Content-Length: 0 -H Accept: application/json --user username:password https://repo.spring.io/api/search/prop?zip.type=docs&zip.deployed=false
 -X PUT -H Content-type: application/json -H Content-Length: 0 -H Accept: application/json --user username:password https://repo.spring.io/artifactory/api/storage/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip?properties=zip.deployed=true"
-    assert_program_args "wget" "--http-user=username --http-password=password -O downloads/http-client-1.0.0.M1-docs.zip https://repo.spring.io/artifactory/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip"
+    assert_program_args "wget" "--http-user=username --http-password=password --quiet -O downloads/http-client-1.0.0.M1-docs.zip https://repo.spring.io/artifactory/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip"
 }
