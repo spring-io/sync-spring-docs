@@ -18,10 +18,10 @@ teardown() {
 @test "usage" {
     run action.sh
     assert [ "$status" -eq 1 ]
-    assert [ "${output}" = "Error: Missing option '--docs-dir'
+    assert [ "${output}" = "Error: Missing option '--docs-base-dir'
 usage: action.sh [OPTION]...
 
-   --docs-dir=DIR              the directory to search for html files and inject the onetrust code above </head>" ]
+   --docs-base-dir=DIR              the directory to search for html files and inject the onetrust code above </head>" ]
 }
 
 @test "invalid long option" {
@@ -36,7 +36,7 @@ usage: action.sh [OPTION]...
     local expected_dir="${BATS_RESOURCE_TEMP_DIR}/expected-docs"
     local tmp_actual_filename=/tmp/actual.txt
     local tmp_expected_filename=/tmp/expected.txt
-    run action.sh --docs-dir $docs_dir
+    run action.sh --docs-base-dir $docs_dir
     assert_success
     find $expected_dir -type f | while read expected_file; do
         local actual_file=$(echo $expected_file | sed "s#$expected_dir#$docs_dir#")

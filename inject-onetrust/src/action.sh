@@ -3,7 +3,7 @@
 __action_usage() {
   echo "usage: action.sh [OPTION]...
 
-   --docs-dir=DIR              the directory to search for html files and inject the onetrust code above </head>
+   --docs-base-dir=DIR              the directory to search for html files and inject the onetrust code above </head>
 "
 }
 
