@@ -73,6 +73,7 @@ __action() {
   local docs_base_dir=docs
   local get_docs_to_download_uri="https://${artifactory_host}/api/search/prop?zip.type=docs&zip.deployed=false"
   mkdir -p $download_dir
+  mkdir -p $docs_base_dir
   echo "Getting Downloads from $get_docs_to_download_uri"
   # Use same headers that existed in the original script
   # https://jfrog.com/help/r/jfrog-rest-apis/property-search
