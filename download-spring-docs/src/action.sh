@@ -91,7 +91,7 @@ __action() {
     unzip -q -o $download_file_path -d $unzip_dir
     rm -f $download_file_path
     local mark_deployed_url="${uri}?properties=zip.deployed=true"
-    curl -X PUT -H 'Content-type: application/json' -H 'Content-Length: 0' -H 'Accept: application/json' --user "$artifactory_username:$artifactory_password" $mark_deployed_url
+    # curl -X PUT -H 'Content-type: application/json' -H 'Content-Length: 0' -H 'Accept: application/json' --user "$artifactory_username:$artifactory_password" $mark_deployed_url
   done
   echo "Done getting docs"
 }
