@@ -18,7 +18,7 @@ __action() {
     local script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
     local onetrust_include_path="${script_dir}/onetrust.include"
     local docs_directory
-    valid_args=$(getopt --options '' --long docs-dir: -- "$@")
+    valid_args=$(getopt --options '' --long docs-base-dir: -- "$@")
     if [[ $? -ne 0 ]]; then
       __action_usage
       exit 1;
@@ -28,7 +28,7 @@ __action() {
 
     while [ : ]; do
     case "$1" in
-      --docs-dir)
+      --docs-base-dir)
           docs_directory="$2"
           shift 2
           ;;
@@ -42,7 +42,7 @@ __action() {
     done
 
     if [ -z "$docs_directory" ]; then
-      __action_usage_error "Missing option '--docs-dir'"
+      __action_usage_error "Missing option '--docs-base-dir'"
     fi
     find $docs_directory -name "*.html" | while read html_filename; do
         echo $html_filename
