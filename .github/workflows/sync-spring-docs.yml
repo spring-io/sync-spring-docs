@@ -18,4 +18,4 @@ jobs:
       - name: Download Spring Docs from Artifactory
         run: ./download-spring-docs/src/action.sh --artifactory-username "$ARTIFACTORY_USERNAME" --artifactory-password "$ARTIFACTORY_PASSWORD" --docs-base-dir=docs
       - name: Inject OneTrust
-        run: ./inject-onetrust/src/action.sh
+        run: ./inject-onetrust/src/action.sh --docs-base-dir=docs
