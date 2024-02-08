@@ -1,0 +1,18 @@
+name: Inject OneTrust JavaScript
+description: Injects OneTrust JavaScript before the </head> of any html files found in the specified docs-base-dir
+branding:
+  icon: 'edit'
+  color: 'green'
+inputs:
+  docs-base-dir:
+    description: the directory to search for html files and inject the onetrust code above </head>
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - id: inject-onetrust
+      shell: bash
+      run: |
+        PATH=$PATH:${{ github.action_path }}/src
+        ${{ github.action_path }}/src/action.sh --docs-base-dir "${{ inputs.docs-base-dir }}"
