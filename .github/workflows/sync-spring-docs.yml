@@ -17,8 +17,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Download Spring Docs from Artifactory
         run: ./download-spring-docs/src/action.sh --artifactory-username "$ARTIFACTORY_USERNAME" --artifactory-password "$ARTIFACTORY_PASSWORD" --docs-base-dir docs
-      - name: Inject OneTrust
-        run: ./inject-onetrust/src/action.sh --docs-base-dir docs
+# We are not using analytics so we don't need to do this
+#      - name: Inject OneTrust
+#        run: ./inject-onetrust/src/action.sh --docs-base-dir docs
       - name: 'auth'
         uses: 'google-github-actions/auth@v2.1.0'
         with:
