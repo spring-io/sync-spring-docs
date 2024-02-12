@@ -90,6 +90,32 @@ usage: action.sh [OPTION]...
     assert_program_args "rm" "-f downloads/http-client-1.0.0.M1-docs.zip"
 }
 
+# If the project name ends with -docs it is removed
+@test "-docs project name trimmed" {
+    stub curl "$(capture_program_args "curl");echo '{ \"results\": [ { \"uri\": \"https://repo.spring.vmware.com/artifactory/spring-commercial-snapshot-local/org/springframework/boot/spring-boot-docs/2.7.19-SNAPSHOT/spring-boot-docs-2.7.19-20240206.120651-18.zip\" } ] }'"
+    stub curl "$(capture_program_args "curl")"
+    stub mkdir "$(capture_program_args "mkdir")"
+    stub mkdir "$(capture_program_args "mkdir")"
+    stub mkdir "$(capture_program_args "mkdir")"
+    stub wget "$(capture_program_args "wget")"
+    stub unzip "$(capture_program_args "unzip")"
+    stub rm "$(capture_program_args "rm")"
+
+    run action.sh --artifactory-username username --artifactory-password password --docs-base-dir docs
+
+    unstub curl
+    unstub mkdir
+    unstub wget
+    unstub unzip
+    unstub rm
+
+    assert_success
+    assert_program_args "mkdir" "-p downloads
+-p docs
+-p docs/spring-boot/docs/2.7.19-SNAPSHOT"
+    assert_program_args "unzip" "-q -o downloads/spring-boot-docs-2.7.19-20240206.120651-18.zip -d docs/spring-boot/docs/2.7.19-SNAPSHOT"
+}
+
 @test "no results" {
     stub curl "$(capture_program_args "curl")"
     stub mkdir "$(capture_program_args "mkdir")"

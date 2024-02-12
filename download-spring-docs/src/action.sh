@@ -81,7 +81,7 @@ __action() {
     IFS='/' read -r -a uri_parts <<< "$uri"
     local file_name="${uri_parts[-1]}"
     local project_version="${uri_parts[-2]}"
-    local project_name="${uri_parts[-3]}"
+    local project_name=$(echo "${uri_parts[-3]}" | sed 's/\-docs//') # remove -docs from project name
     local download_url=$(echo $uri | sed 's#/api/storage##')
     local download_file_path="${download_dir}/${file_name}"
     echo "Downloading ${download_url} to ${download_file_path}"
