@@ -84,9 +84,9 @@ usage: action.sh [OPTION]...
 -X PUT -H Content-type: application/json -H Content-Length: 0 -H Accept: application/json --user username:password https://repo.spring.vmware.com/artifactory/api/storage/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip?properties=zip.deployed=true"
     assert_program_args "mkdir" "-p downloads
 -p docs
--p docs/http-client/1.0.0.M1"
+-p docs/http-client/docs/1.0.0.M1"
     assert_program_args "wget" "--http-user=username --http-password=password --quiet -O downloads/http-client-1.0.0.M1-docs.zip https://repo.spring.vmware.com/artifactory/libs-milestone-local/com/rabbitmq/http-client/1.0.0.M1/http-client-1.0.0.M1-docs.zip"
-    assert_program_args "unzip" "-q -o downloads/http-client-1.0.0.M1-docs.zip -d docs/http-client/1.0.0.M1"
+    assert_program_args "unzip" "-q -o downloads/http-client-1.0.0.M1-docs.zip -d docs/http-client/docs/1.0.0.M1"
     assert_program_args "rm" "-f downloads/http-client-1.0.0.M1-docs.zip"
 }
 

@@ -86,7 +86,7 @@ __action() {
     local download_file_path="${download_dir}/${file_name}"
     echo "Downloading ${download_url} to ${download_file_path}"
     wget --http-user=$artifactory_username --http-password=$artifactory_password --quiet -O "$download_file_path" $download_url
-    local unzip_dir="${docs_base_dir}/${project_name}/${project_version}"
+    local unzip_dir="${docs_base_dir}/${project_name}/docs/${project_version}"
     mkdir -p $unzip_dir
     unzip -q -o $download_file_path -d $unzip_dir
     rm -f $download_file_path
