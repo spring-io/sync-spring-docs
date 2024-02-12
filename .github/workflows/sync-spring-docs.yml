@@ -20,13 +20,14 @@ jobs:
 # We are not using analytics so we don't need to do this
 #      - name: Inject OneTrust
 #        run: ./inject-onetrust/src/action.sh --docs-base-dir docs
-      - name: 'auth'
+      - name: 'Authenticate to ${{ env.COMMERCIAL_DOCS_HOST }}'
         uses: 'google-github-actions/auth@v2.1.0'
         with:
           credentials_json: '${{ secrets.COMMERCIAL_DOCS_GCP_BUCKET_JSON }}'
-      - id: 'upload-folder'
+      - name: Upload to ${{ env.COMMERCIAL_DOCS_HOST }}
+        id: 'upload-folder'
         uses: 'google-github-actions/upload-cloud-storage@v2.1.0'
         with:
           path: 'docs'
-          destination: 'commercial-docs.spring.io'
+          destination: ${{ env.COMMERCIAL_DOCS_HOST }}
           parent: false
