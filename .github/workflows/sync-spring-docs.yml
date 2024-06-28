@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download Spring Docs from Artifactory
-        run: ./download-spring-docs/src/action.sh --artifactory-host "$ARTIFACTORY_USERNAME" --artifactory-username "$ARTIFACTORY_USERNAME" --artifactory-password "$ARTIFACTORY_PASSWORD" --docs-base-dir docs
+        run: ./download-spring-docs/src/action.sh --artifactory-host "$ARTIFACTORY_HOST" --artifactory-username "$ARTIFACTORY_USERNAME" --artifactory-password "$ARTIFACTORY_PASSWORD" --docs-base-dir docs
 # We are not using analytics so we don't need to do this
 #      - name: Inject OneTrust
 #        run: ./inject-onetrust/src/action.sh --docs-base-dir docs
