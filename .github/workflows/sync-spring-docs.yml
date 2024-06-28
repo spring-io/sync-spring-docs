@@ -11,7 +11,7 @@ permissions:
 jobs:
   build:
     name: Sync Spring Docs
-    runs-on: ubuntu-latest
+    runs-on: [usw1, Linux ]
     env:
       ARTIFACTORY_HOST: ${{ secrets.COMMERCIAL_ARTIFACTORY_HOST }}
       ARTIFACTORY_USERNAME: ${{ secrets.COMMERCIAL_ANNOTATE_ARTIFACTORY_USERNAME }}
