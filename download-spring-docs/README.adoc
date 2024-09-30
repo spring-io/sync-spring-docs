@@ -1,0 +1,45 @@
+= Download & Extract zip.type=docs zip.deployed=false
+
+This script downloads zip artifacts with the properties `zip.type=docs` & `zip.deployed=false` from Artifactory and extracts the zip file to be deployed by additional logic.
+To see it in action refer to link:../.github/workflows/sync-spring-docs.yml[sync-spring-docs.yml]
+
+NOTE: The logic for this script is intended to mimic the PHP script that was originally put in place for deploying docs.
+
+[source,sh]
+----
+usage: action.sh [OPTION]...
+    Downloads any zip files that have not been deployed yet and then marks them as deployed.
+
+    --artifactory-host=ARTIFACTORY_HOST   the artifactory host to search (default repo.spring.vmware.com)
+    --artifactory-username=USERNAME       the username used to artifactory
+    --artifactory-password=PASSWORD       the password used to connect to artifactory
+    --docs-base-dir=DOCS_BASE_DIR         the base directory to download zip files to. The complete directory is
+                                          $DOCS_BASE_DIR/$ARTIFACT_NAME/$ARTIFACT_VERSION which is created if does not exist
+----
+
+== How it Works
+
+The script starts by querying `https://${ARTIFACTORY_HOST}/api/search/prop?zip.type=docs&zip.deployed=false`
+
+The results look something like this:
+
+NOTE: The results can be filtered by the permission for the credentials used with the query.
+
+[source,json]
+----
+{
+  "results": [
+    {
+      "uri": "https://repo.spring.io/artifactory/api/storage/libs-milestone-local/org/springframework/boot/spring-boot-docs/2.2.0/spring-boot-docs-2.2.0.zip"
+    }
+  ]
+}
+----
+
+Each uri will be downloaded and extracted to `${DOCS_BASE_DIR}/${PROJECT_NAME}/docs/${PROJECT_VERSION}` such that
+
+* `DOCS_BASE_DIR` is the argument provided by the script (uses `docs`)
+* `PROJECT_NAME` is the third to last path segment of each uri (`spring-boot-docs`) with `-docs` removed (`spring-boot`)
+* `PROJECT_VERSION` is the second to last path segment of each uri (`2.2.0`)
+
+This script is then combined with an upload mechanism (e.g. `google-github-actions/upload-cloud-storage`)
